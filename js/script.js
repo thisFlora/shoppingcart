@@ -26,13 +26,21 @@ function sumarCostos() {
             return kit;
         }
     }
-
 }
 
 function finalizarCompra() {
-    alert(" Tu compra es por un total de $ " + sumarCostos());
+    precio = sumarCostos();
+    alert(" Tu compra es por un total de $" + precio);
 }
 
+function precioIva() {
+    if(iva == '1') {
+        precio = precio * 1.21;
+        return alert("Tu precio final es $" + precio);
+    } else {
+        return alert("Tu precio final es $" + precio);
+    }
+}
 // main
 let nombre = prompt("Ingrese su nombre");
 saludar();
@@ -41,6 +49,7 @@ let catuai = 1200;
 let chiapas = 1500;
 let kit = 2500;
 let producto2 = "";
+let precio = 0;
 let producto1 = prompt(
     "elija uno de nuestros productos \n 1: Catuaí Brasil \n 2: México Chiapas \n 3: Kit Cafetero"
 );
@@ -52,3 +61,5 @@ if (seguirCompra.toLowerCase() === 'si') {
 }
 finalizarCompra();
 
+let iva = prompt('Ingrese su condición ante el IVA \n 1: Responsable Inscripto \n 2: Exenta');
+precioIva();
