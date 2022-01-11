@@ -59,53 +59,56 @@
             <div class="row row-cols-1 row-cols-md-3 g-4">
                 <div class="col">
                     <div class="card h-100">
-                        <img src="./img/brasil01.png" class="card-img-top" alt="...">
+                        <img src="./img/brasil01.png" class="card-img-top" alt="café Brasil">
                         <div class="card-body">
                             <h5 class="card-title">Catuaí Brasil</h5>
                             <p class="card-text">Catuaí es un híbrido originado en Brasil, 
                                 resultante del cruce entre las variedades Mondo Novo y Caturra. 
-                                Sus frutos pueden ser rojos o amarillos, incluso existen algunos 
-                                raros casos donde su color es anaranjado.</p>
+                            </p>
+                            <small class="text-muted">Precio: $1200</small>
                         </div>
                         <div class="card-footer">
-                            <small class="text-muted">Precio: $1200</small>
+                            <button type="button" class="btn btn-outline-dark" onClick= "comprar(1);">COMPRAR</button>
                         </div>
                     </div>
                 </div>
                 <div class="col">
                     <div class="card h-100">
-                        <img src="./img/mexico01.png" class="card-img-top" alt="...">
+                        <img src="./img/mexico01.png" class="card-img-top" alt="café México">
                         <div class="card-body">
                             <h5 class="card-title">México Chiapas</h5>
                             <p class="card-text">Sembrado y cosechado a lo largo de 
                                 la frontera sur de México a 2.000 metros de altura. 
-                                De pequeñas fincas indígenas que utilizan prácticas de cultivos orgánicas. 
-                                De acidez cítrica media, cuerpo equilibrado. Con notas a nuez, miel y caramelo.</p>
+                                De acidez cítrica media, cuerpo equilibrado.</p>
+                                <small class="text-muted">Precio: $1500</small>
                         </div>
                         <div class="card-footer">
-                            <small class="text-muted">Precio: $1500</small>
+                            <button type="button" class="btn btn-outline-dark" onClick= "comprar(2);">COMPRAR</button>
                         </div>
                     </div>
                 </div>
                 <div class="col">
                     <div class="card h-100">
-                        <img src="./img/triple01.png" class="card-img-top" alt="...">
+                        <img src="./img/kit01.png" class="card-img-top" alt="Kit café">
                         <div class="card-body">
                             <h5 class="card-title">Kit cafetero</h5>
-                            <p class="card-text">Llevate 3 diferentes cafés de especialidad para probar en tu casa,
+                            <p class="card-text">Podes llevar nuestro kit con 3 diferentes cafés de especialidad para probar en tu casa.
                                 ¡disfruta los diferentes origenes que tenemos en nuestra tienda!
                             </p>
+                            <small class="text-muted">Precio: $2500</small>
                         </div>
                         <div class="card-footer">
-                            <small class="text-muted">Precio: $2500</small>
+                            <button type="button" class="btn btn-outline-dark" onClick="comprar(3);">COMPRAR</button>
                         </div>
                     </div>
                 </div>
             </div>
+            <hr>
+            <button type="button" class="btn btn-secondary btn-lg" onClick="finalizarCompra();">Finalizar compra</button>
         </div>
     </main>
     <footer>
-        <p> 2021 &copy; The Coffee Dealer</p>
+        <p> 2022 &copy; The Coffee Dealer</p>
     </footer>
     <!-- Script Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"

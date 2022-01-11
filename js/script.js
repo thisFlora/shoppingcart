@@ -1,78 +1,70 @@
-let catuai = 1200;
-let chiapas = 1500;
-let kit = 2500;
-let producto1 = "";
-let producto2 = "";
 let precio = 0;
 let nombre = "";
 let iva = "";
-let seguirCompra = ""; 
+let precioFinal = 0; 
+let suma = 0;
+let listaCompra = "";
+const carrito = [];
+let lista = [];
+
+const productos = [
+    { id: 1, producto: "Brasil Catuai", precio: 1200, cantidad: 1},
+    { id: 2, producto: "México Chiapas", precio: 1500, cantidad: 1},
+    { id: 3, producto: "Kit Cafetero", precio: 2500, cantidad: 1}
+];
 
 function saludar() {
     alert('Bienvenido/a ' + nombre + ', a continuacion podrá escoger productos de la tienda☕');
 }
+nombre = prompt("Ingrese su nombre");
+saludar();
 
+function comprar(id) {
+    const found = productos.find(element => element.id === id);
+        if(found.id == id){
+            carrito.push(found);
+        }
+}
 function sumarCostos() {
-    if(seguirCompra.toLowerCase() === 'si'){
-        if (producto1 == "1" && producto2 == "2") {
-            return catuai + chiapas;
-        } else if (producto1 == "1" && producto2 == "3") {
-            return catuai + kit;
-        } 
-        else if (producto1 == "1" && producto2 =="1"){
-            return catuai + catuai;
-        }else if (producto1 == "2" && producto2 == "1") {
-            return chiapas + catuai;
-        }else if (producto1 == "2" && producto2 == "3"){
-            return chiapas + kit;
-        }else if (producto1 == "2" && producto2 == "2"){
-            return chiapas + chiapas;
-        }else if (producto1 == "3" && producto2 == "1"){
-            return kit + catuai;
-        }else if (producto1 == "3" && producto2 == "2"){
-            return kit + chiapas;
-        }else if (producto1 == "3" && producto2 == "3"){
-            return kit + kit;
-        }
-    } else {
-        if(producto1 == "1"){
-            return catuai;
-        } else if(producto1 == "2"){
-            return chiapas;
-        }else {
-            return kit;
-        }
+    for(const producto of carrito){
+        suma = suma + producto.precio;
+        console.log("Estoy en sumarCostos() y el precio actual es:" + suma);
     }
+    return suma;
 }
 
 function finalizarCompra() {
-    precio = sumarCostos();
-    alert(" Tu compra es por un total de $" + precio);
+    listaCompra = prompt("¿Desea ver la lista de su carrito de compras?");
+    if(listaCompra.toUpperCase() == 'SI') {
+    mostrarLista();
+    }
+    precioFinal = sumarCostos();
+    alert("El total de su compra es: $" + precioFinal);
+    iva = prompt('Ingrese su condición ante el IVA \n 1: Responsable Inscripto \n 2: Exenta');
+    precioIva();
+    vaciarCarrito();
 }
 
 function precioIva() {
     if(iva == '1') {
-        precio = precio * 1.21;
-        return alert("Tu precio final es $" + precio);
+        precio = precioFinal * 1.21;
+        return alert("El precio final de tu compra es $" + precio);
     } else {
-        return alert("Tu precio final es $" + precio);
+        return alert("El precio final de tu compra es $" + precioFinal);
     }
 }
 
-nombre = prompt("Ingrese su nombre");
-saludar();
-
-producto1 = prompt(
-    "elija uno de nuestros productos \n 1: Catuaí Brasil \n 2: México Chiapas \n 3: Kit Cafetero"
-);
-
-seguirCompra = prompt("¿Quiere seguir comprando?");
-if (seguirCompra.toLowerCase() === 'si') {
-    producto2 = prompt(
-        "elija otro de nuestros productos \n 1: Catuaí Brasil \n 2: México Chiapas \n 3: Kit Cafetero"
-    );
+function vaciarCarrito() {
+    carrito.splice(0, carrito.length);
+    suma = 0;
+    precioFinal = 0;
 }
-finalizarCompra();
 
-iva = prompt('Ingrese su condición ante el IVA \n 1: Responsable Inscripto \n 2: Exenta');
-precioIva();
+function mostrarLista() {
+        carrito.sort((firstId, secondId) => firstId.id - secondId.id);
+        for(let prod of carrito){
+            lista.push(prod.producto);
+        }
+    alert(lista.join("\n"));
+    lista.splice(0, lista.length);
+}
