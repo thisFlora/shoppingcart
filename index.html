@@ -10,6 +10,7 @@
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="./css/styles.css">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>The Coffee Dealer</title>
 </head>
 
@@ -31,10 +32,10 @@
                     </div>
                     <div class="offcanvas-body">
                         <!--Acá debería mostrar los objetos-->
-                        <ul id="lista" class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        <div id="lista" class="navbar-nav justify-content-end flex-grow-1 pe-3">
                             
-                        </ul>
-                        <button type="button" class="btn btn-secondary btn-lg" onClick="finalizarCompra();">Finalizar compra</button>
+                        </div>
+                        <button type="button" id="fin" class="btn btn-secondary btn-lg"">Finalizar compra</button>
                     </div>
                 </div>
             </div>
@@ -56,7 +57,7 @@
                             <small class="text-muted">Precio: $1200</small>
                         </div>
                         <div class="card-footer">
-                            <button type="button" class="btn btn-outline-dark" onClick= "comprar(1);">COMPRAR</button>
+                            <button type="button" id="catuai" class="btn btn-outline-dark btn-comprar" data-id="1">COMPRAR</button>
                         </div>
                     </div>
                 </div>
@@ -71,7 +72,7 @@
                                 <small class="text-muted">Precio: $1500</small>
                         </div>
                         <div class="card-footer">
-                            <button type="button" class="btn btn-outline-dark" onClick= "comprar(2);">COMPRAR</button>
+                            <button type="button" id="chiapas" class="btn btn-outline-dark btn-comprar" data-id="2">COMPRAR</button>
                         </div>
                     </div>
                 </div>
@@ -86,7 +87,7 @@
                             <small class="text-muted">Precio: $2500</small>
                         </div>
                         <div class="card-footer">
-                            <button type="button" class="btn btn-outline-dark" onClick="comprar(3);">COMPRAR</button>
+                            <button type="button" id="kit" class="btn btn-outline-dark" data-id="3">COMPRAR</button>
                         </div>
                     </div>
                 </div>
