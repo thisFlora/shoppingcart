@@ -8,17 +8,18 @@ let carrito = [];
 let lista = [];
 
 const productos = [
-    { id: 1, producto: "Brasil Catuai", precio: 1200 },
-    { id: 2, producto: "México Chiapas", precio: 1500 },
-    { id: 3, producto: "Kit Cafetero", precio: 2500 },
+    { id: 1, producto: "Brasil Catuai", precio: 1200, url:"./img/brasil01.png" },
+    { id: 2, producto: "México Chiapas", precio: 1500, url:"./img/mexico01.png" },
+    { id: 3, producto: "Kit Cafetero", precio: 2500, url:"./img/kit01.png" },
 ];
 
 class Carrito {
-    constructor(id, producto, precio, cantidad) {
+    constructor(id, producto, precio, cantidad, url) {
         this.id = id;
         this.producto = producto;
         this.precio = precio;
         this.cantidad = cantidad;
+        this.url = url;
     }
 }
 
@@ -65,29 +66,6 @@ function buscarId(e) {
     comprar(idBtn);
 }
 
-//me fijo si hay un elemento con el mismo id, si hay le sumo 1 a la cantidad y si no, lo creo
-function comprar(id) {
-    let idProd = id;
-    if (carrito.some((element) => element.id === idProd)) {
-        const found = carrito.find((element) => element.id === idProd);
-        found.cantidad++;
-        mostrarAlert();
-        guardarStorage("carrito", JSON.stringify(carrito));
-        despliegaProductos();
-    } else {
-        const found = productos.find((element) => element.id === idProd);
-        const id = found.id;
-        const producto = found.producto;
-        const precio = found.precio;
-        const agregarProd = new Carrito(id, producto, precio, 1);
-        carrito.push(agregarProd);
-        guardarStorage("carrito", JSON.stringify(carrito));
-        mostrarAlert();
-        despliegaProductos();
-    }
-}
-
-//muestro alerta de que se agregó el producto
 function mostrarAlert() {
     const Toast = Swal.mixin({
         toast: true,
@@ -106,16 +84,50 @@ function mostrarAlert() {
     });
 }
 
+//me fijo si hay un elemento con el mismo id, si hay le sumo 1 a la cantidad y si no, lo creo
+function comprar(id) {
+    let idProd = id;
+    if (carrito.some((element) => element.id === idProd)) {
+        const found = carrito.find((element) => element.id === idProd);
+        found.cantidad++;
+        mostrarAlert();
+        guardarStorage("carrito", JSON.stringify(carrito));
+        despliegaProductos();
+    } else {
+        const found = productos.find((element) => element.id === idProd);
+        const id = found.id;
+        const producto = found.producto;
+        const precio = found.precio;
+        const url = found.url;
+        const agregarProd = new Carrito(id, producto, precio, 1, url);
+        carrito.push(agregarProd);
+        guardarStorage("carrito", JSON.stringify(carrito));
+        mostrarAlert();
+        despliegaProductos();
+    }
+}
+
 //Agrego los productos al carrito en el html
 function despliegaProductos() {
     const listaP = document.getElementById("lista");
     listaP.innerHTML = "";
     carrito.forEach((producto) => {
+        console.log(producto);
         let prod = document.createElement("li");
-        prod.innerHTML = `<span style="color: white">${producto.producto}</span>  
-                            <span style="color:white">Precio: $${producto.precio}</span>  
-                            <span style="color:white">Cantidad: ${producto.cantidad}</span>
-                            `;
+        prod.innerHTML = `<div class="card mb-3" style="max-width: 540px;">
+                                <div class="row g-0">
+                                    <div class="col-md-4">
+                                        <img src="${producto.url}" class="img-fluid rounded-start" alt="img-producto">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <h5 class="card-title">${producto.producto}</h5>
+                                            <p class="card-text">Precio: $${producto.precio}</p>
+                                            <p>Cantidad:<input type="number" min="1" max="10" step="1" autocomplete="off" value="${producto.cantidad}"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>`;                   
         listaP.appendChild(prod);
     });
 }
@@ -141,23 +153,13 @@ finaliza.addEventListener("click", finalizarCompra);
 
 function finalizarCompra() {
     precioFinal = sumarCostos();
-    iva = prompt(
-        "Ingrese su condición ante el IVA \n 1: Responsable Inscripto \n 2: Exenta"
+    Swal.fire(
+        `El total de su compra es: $${precioFinal} `
     );
-    precioIva();
     vaciarCarrito();
     setTimeout(() => {
         location.reload();
     }, 3000);
-}
-
-function precioIva() {
-    if (iva == "1") {
-        precio = precioFinal * 1.21;
-        return alert("El precio final de tu compra es $" + precio);
-    } else {
-        return alert("El precio final de tu compra es $" + precioFinal);
-    }
 }
 
 function vaciarCarrito() {
