@@ -1,8 +1,3 @@
-let precio = 0;
-let nombre = "";
-let iva = "";
-let precioFinal = 0;
-let suma = 0;
 let listaCompra = "";
 let carrito = [];
 let lista = [];
@@ -23,40 +18,15 @@ class Carrito {
     }
 }
 
-function saludar() {
-    (async () => {
-        const { value: nombre } = await Swal.fire({
-            title: "Bienvenido",
-            input: "text",
-            inputAttributes: {
-                autocomplete: "off",
-            },
-            inputLabel: "Ingrese su nombre",
-        });
-        if (nombre) {
-            Swal.fire(
-                `Hola ${nombre}, a continuación podrás escoger productos de la tienda☕ `
-            );
-        }
-    })();
-}
-
-saludar();
-
 //Si hay algo en el carrito, lo recupero.
 if (recuperarStorage("carrito")) {
     carrito = recuperarStorage("carrito");
 }
 
 //Capturo los objetos de los productos y cuando hagan clic ejecuto buscarId
-let catuai = document.getElementById("catuai");
-catuai.addEventListener("click", buscarId);
-
-let chiapas = document.getElementById("chiapas");
-chiapas.addEventListener("click", buscarId);
-
-let kit = document.getElementById("kit");
-kit.addEventListener("click", buscarId);
+let catuai = $("#catuai").click(buscarId);
+let chiapas = $("#chiapas").click(buscarId);
+let kit = $("#kit").click(buscarId);
 
 //Guardo el valor del data-id del HTML y se lo paso a la funcion comprar
 function buscarId(e) {
@@ -109,26 +79,62 @@ function comprar(id) {
 
 //Agrego los productos al carrito en el html
 function despliegaProductos() {
-    const listaP = document.getElementById("lista");
-    listaP.innerHTML = "";
+    $("#lista").empty();
     carrito.forEach((producto) => {
-        console.log(producto);
-        let prod = document.createElement("li");
-        prod.innerHTML = `<div class="card mb-3" style="max-width: 540px;">
+        $('#lista').append(`<div id=${producto.id} class="card mb-3" style="max-width: 540px;">
                                 <div class="row g-0">
                                     <div class="col-md-4">
                                         <img src="${producto.url}" class="img-fluid rounded-start" alt="img-producto">
                                     </div>
                                     <div class="col-md-8">
                                         <div class="card-body">
-                                            <h5 class="card-title">${producto.producto}</h5>
-                                            <p class="card-text">Precio: $${producto.precio}</p>
-                                            <p>Cantidad:<input type="number" min="1" max="10" step="1" autocomplete="off" value="${producto.cantidad}"></p>
+                                            <h5 class="card-title producto">${producto.producto}</h5>
+                                            <p class="card-text precio">Precio: $${producto.precio}</p>
+                                            <p>Cantidad:
+                                            <span class="box-cantidad">
+                                            <button class="btn btn-secondary btn-sm quitar" id="restar${producto.id}">-</button>
+                                            <span id="cantidad">${producto.cantidad}</span>
+                                            <button class="btn btn-secondary btn-sm agregar" id="sumar${producto.id}">+</button>
+                                            </span>
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
-                            </div>`;                   
-        listaP.appendChild(prod);
+                            </div>`);
+        $(`#agregar${producto.id}`).click(e => {
+            let found = ""
+            const idEl = producto.id;
+            if (carrito.some((element) => element.id === idEl)) {
+                found = carrito.find((element) => element.id === idEl);
+                found.cantidad++;
+                guardarStorage("carrito", JSON.stringify(carrito));
+                // vuelvo a cargar el carrito a mostrar
+                despliegaProductos();
+            } 
+        });
+
+        $(`#restar${producto.id}`).click(e => {
+            let found = ""
+            const idEl = producto.id;
+            if (carrito.some((element) => element.id === idEl)) {
+                found = carrito.find((element) => element.id === idEl);
+                if(found.cantidad === 1){
+                    found.cantidad--;
+                    // removemos del carrito cantidades en 0
+                    carrito = carrito.filter(function (el) {
+                        return el.cantidad !== 0;
+                    });
+                    // removemos del UI el producto en 0
+                    $(`#${idEl}`).remove();
+                    
+                } else {
+                    found.cantidad--;
+                    guardarStorage("carrito", JSON.stringify(carrito));
+                    // vuelvo a cargar el carrito a mostrar
+                    despliegaProductos();
+                }
+            } 
+        });
     });
 }
 
@@ -140,35 +146,5 @@ function recuperarStorage(clave) {
     return JSON.parse(localStorage.getItem(clave));
 }
 
-function sumarCostos() {
-    const nPrecio = carrito.reduce(
-        (acc, { cantidad, precio }) => acc + cantidad * precio,
-        0
-    );
-    return nPrecio;
-}
 
-let finaliza = document.getElementById("fin");
-finaliza.addEventListener("click", finalizarCompra);
 
-function finalizarCompra() {
-    precioFinal = sumarCostos();
-    Swal.fire(
-        `El total de su compra es: $${precioFinal} `
-    );
-    vaciarCarrito();
-    setTimeout(() => {
-        location.reload();
-    }, 3000);
-}
-
-function vaciarCarrito() {
-    carrito.splice(0, carrito.length);
-    suma = 0;
-    precioFinal = 0;
-    localStorage.clear();
-}
-
-function ordenarLista() {
-    return carrito.sort((firstId, secondId) => firstId.id - secondId.id);
-}
