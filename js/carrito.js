@@ -76,6 +76,6 @@ function vaciarCarrito() {
     precioFinal = 0;
     localStorage.clear();
     setTimeout(() => {
-        document.location.href="/";
+        document.location.href="/index.html";
     }, 3000);
 }
