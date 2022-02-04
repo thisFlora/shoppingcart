@@ -76,6 +76,6 @@ function vaciarCarrito() {
     precioFinal = 0;
     localStorage.clear();
     setTimeout(() => {
-        document.location.href="/index.html";
+        document.location.href="https://thisflora.github.io/shoppingcart/";
     }, 3000);
 }
