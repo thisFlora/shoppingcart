@@ -64,25 +64,6 @@
         </nav>
     </header>
     <main>
-        <script>
-            window.onload = function saludar() {
-                (async () => {
-                    const { value: nombre } = await Swal.fire({
-                        title: "Bienvenido",
-                        input: "text",
-                        inputAttributes: {
-                            autocomplete: "off",
-                        },
-                        inputLabel: "Ingrese su nombre",
-                    });
-                    if (nombre) {
-                        Swal.fire(
-                            `Hola ${nombre}, a continuación podrás escoger productos de la tienda☕ `
-                        );
-                    }
-                })();
-            }
-        </script>
         <section id="home" class="mt-5">
             <div class="container-fluid">
                 <div class="row row-home">
