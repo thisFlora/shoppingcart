@@ -101,7 +101,7 @@ function despliegaProductos() {
                                     </div>
                                 </div>
                             </div>`);
-        $(`#agregar${producto.id}`).click(e => {
+        $(`#sumar${producto.id}`).click(e => {
             let found = ""
             const idEl = producto.id;
             if (carrito.some((element) => element.id === idEl)) {
