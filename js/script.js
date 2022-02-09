@@ -18,9 +18,25 @@ class Carrito {
     }
 }
 
-//Si hay algo en el carrito, lo recupero.
+//Si hay algo en el carrito, consulto al usuario.
 if (recuperarStorage("carrito")) {
-    carrito = recuperarStorage("carrito");
+        $(document).ready(function () {
+            let myModal = new bootstrap.Modal(document.getElementById("staticBackdrop"));
+            myModal.show();
+        })
+        let btnSi = $("#btn-aceptar").click(recuperarCart);
+        let btnNo = $("#btn-cancelar").click(recuperarCart);
+}
+
+function recuperarCart(e) {
+    e.preventDefault();
+    let btn = e.target;
+    let value = parseInt(btn.getAttribute("data-id"));
+    if(value === 0){
+        carrito = recuperarStorage("carrito");
+    } else {
+        localStorage.clear();
+    }
 }
 
 //Capturo los objetos de los productos y cuando hagan clic ejecuto buscarId
@@ -44,7 +60,6 @@ function mostrarAlert() {
         timer: 1500,
         timerProgressBar: true,
         didOpen: (toast) => {
-            toast.addEventListener("mouseenter", Swal.stopTimer);
             toast.addEventListener("mouseleave", Swal.resumeTimer);
         },
     });
@@ -145,6 +160,3 @@ function guardarStorage(clave, valor) {
 function recuperarStorage(clave) {
     return JSON.parse(localStorage.getItem(clave));
 }
-
-
-

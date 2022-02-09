@@ -62,12 +62,24 @@ function sumarCostos() {
     return nPrecio;
 }
 
-
 function finalizarCompra() {
-    Swal.fire(
-        `El total de su compra es: $${precioFinal} `
-    );
-    vaciarCarrito();
+    $('#card-text').append(`<div class="mt-2" id="spinner">
+        <button class="btn btn-primary" type="button" disabled>
+    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+    Calculando...
+    </button>
+    </div>`)
+    const spinner = $('#spinner');
+    spinner.css("padding", "10px")
+    .slideDown(5000)
+    .delay(3500)
+    .slideUp(1000)
+    setTimeout(() => {
+        Swal.fire(
+            `El total de su compra es: $${precioFinal} `
+        );
+        vaciarCarrito();
+    }, 4500);
 }
 
 function vaciarCarrito() {
@@ -77,5 +89,5 @@ function vaciarCarrito() {
     localStorage.clear();
     setTimeout(() => {
         document.location.href="https://thisflora.github.io/shoppingcart/";
-    }, 3000);
+    }, 4000);
 }
