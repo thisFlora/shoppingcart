@@ -60,101 +60,112 @@
                         <div id="lista" class="navbar-nav justify-content-end flex-grow-1 pe-3">
                         </div>
                     </div>
-                    <button type="button" class="btn btn-secondary btn-lg"><a href="./pages/carrito.html">Finalizar
+                    <button type="button" class="btn btn-secondary btn-lg "><a href="./pages/carrito.html">Finalizar
                             compra</a></button>
                 </div>
             </div>
         </nav>
     </header>
     <main>
-        <section id="home" class="mt-5">
-            <div class="container-fluid">
-                <div class="row row-home">
-                    <div class="col-md home">
-                        <h1 class="titulo">EL MEJOR CAFÉ. <span id="span-titulo">EN TU CASA</span></h1>
-                        <h2 class="parrafo-home">Empezá a vivir la experiencia del mundo del café de especialidad</h2>
-                        <button class="btn-home" id="btn-home"><a href="#productos">COMPRAR</a></button>
+        <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Tiene un carrito almacenado</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                </div>
-            </div>
-        </section>
-        <section id="productos">
-            <!-- Modal -->
-            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-                aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">Tiene un carrito almacenado</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            ¿Quiere mantener los productos del carrito?
-                        </div>
-                        <div class="modal-footer" id="div-btn">
-                            <button type="button" id="btn-cancelar" class="btn btn-secondary" data-bs-dismiss="modal" data-id="1">Cancelar</button>
-                            <button type="button" id="btn-aceptar" class="btn btn-primary" data-bs-dismiss="modal" data-id="0"">Aceptar</button>
-                        </div>
+                    <div class="modal-body">
+                        ¿Quiere mantener los productos del carrito?
                     </div>
-                </div>
-            </div>
-            <div class=" container pt-5" style="text-align: center;">
-                <h1 class="pt-5">Nuestros productos</h1>
-                <hr class="dropdown-divider">
-                <div class="row row-cols-1 row-cols-md-3 g-4">
-                    <div class="col">
-                        <div class="card h-100">
-                            <img src="./img/brasil01.png" class="card-img-top" alt="café Brasil">
-                            <div class="card-body">
-                                <h5 class="card-title">Catuaí Brasil</h5>
-                                <p class="card-text">Catuaí es un híbrido originado en Brasil,
-                                    resultante del cruce entre las variedades Mondo Novo y Caturra.
-                                </p>
-                                <small class="text-muted">Precio: $1200</small>
-                            </div>
-                            <div class="card-footer">
-                                <button type="button" id="catuai" class="btn btn-outline-dark btn-comprar"
-                                    data-id="1">AGREGAR PRODUCTO</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card h-100">
-                            <img src="./img/mexico01.png" class="card-img-top" alt="café México">
-                            <div class="card-body">
-                                <h5 class="card-title">México Chiapas</h5>
-                                <p class="card-text">Sembrado y cosechado a lo largo de
-                                    la frontera sur de México a 2.000 metros de altura.
-                                    De acidez cítrica media, cuerpo equilibrado.</p>
-                                <small class="text-muted">Precio: $1500</small>
-                            </div>
-                            <div class="card-footer">
-                                <button type="button" id="chiapas" class="btn btn-outline-dark btn-comprar"
-                                    data-id="2">AGREGAR PRODUCTO</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card h-100">
-                            <img src="./img/kit01.png" class="card-img-top" alt="Kit café">
-                            <div class="card-body">
-                                <h5 class="card-title">Kit cafetero</h5>
-                                <p class="card-text">Podes llevar nuestro kit con 3 diferentes cafés de
-                                    especialidad para probar en tu casa.
-                                    ¡disfruta los diferentes origenes que tenemos en nuestra tienda!
-                                </p>
-                                <small class="text-muted">Precio: $2500</small>
-                            </div>
-                            <div class="card-footer">
-                                <button type="button" id="kit" class="btn btn-outline-dark" data-id="3">AGREGAR
-                                    PRODUCTO</button>
+                    <div class="modal-footer" id="div-btn">
+                        <button type="button" id="btn-cancelar" class="btn btn-secondary" data-bs-dismiss="modal"
+                            data-id="1">Cancelar</button>
+                        <button type="button" id="btn-aceptar" class="btn btn-primary" data-bs-dismiss="modal"
+                            data-id="0"">Aceptar</button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <hr>
-            </div>
-        </section>
+        <!--End Modal-->
+        <section id=" home" class="mt-5">
+                            <div class="container-fluid">
+                                <div class="row row-home">
+                                    <div class="col-md home">
+                                        <h1 class="titulo">EL MEJOR CAFÉ. <span id="span-titulo">EN TU CASA</span></h1>
+                                        <h2 class="parrafo-home">Empezá a vivir la experiencia del mundo del café de
+                                            especialidad</h2>
+                                        <button class="btn-home" id="btn-home"><a href="#productos">COMPRAR</a></button>
+                                    </div>
+                                </div>
+                            </div>
+                            </section>
+                            <section id="productos">
+                                <div class=" container pt-5" style="text-align: center;">
+                                    <h1 class="pt-5">Nuestros productos</h1>
+                                    <hr class="dropdown-divider">
+                                    <div class="row row-cols-1 row-cols-md-3 g-4">
+                                        <div class="col">
+                                            <div class="card h-100">
+                                                <img src="./img/brasil01.png" class="card-img-top" alt="café Brasil">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">Catuaí Brasil</h5>
+                                                    <p class="card-text">Catuaí es un híbrido originado en Brasil,
+                                                        resultante del cruce entre las variedades Mondo Novo y Caturra.
+                                                    </p>
+                                                    <small class="text-muted">Precio: $1200</small>
+                                                </div>
+                                                <div class="card-footer">
+                                                    <button type="button" id="catuai"
+                                                        class="btn btn-outline-dark btn-comprar" data-id="1">
+                                                        AGREGAR PRODUCTO
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="card h-100">
+                                                <img src="./img/mexico01.png" class="card-img-top" alt="café México">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">México Chiapas</h5>
+                                                    <p class="card-text">Sembrado y cosechado a lo largo de
+                                                        la frontera sur de México a 2.000 metros de altura.
+                                                        De acidez cítrica media, cuerpo equilibrado.</p>
+                                                    <small class="text-muted">Precio: $1500</small>
+                                                </div>
+                                                <div class="card-footer">
+                                                    <button type="button" id="chiapas"
+                                                        class="btn btn-outline-dark btn-comprar" data-id="2">
+                                                        AGREGAR PRODUCTO
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="card h-100">
+                                                <img src="./img/kit01.png" class="card-img-top" alt="Kit café">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">Kit cafetero</h5>
+                                                    <p class="card-text">Podes llevar nuestro kit con 3 diferentes cafés
+                                                        de
+                                                        especialidad para probar en tu casa.
+                                                        ¡disfruta los diferentes origenes que tenemos en nuestra tienda!
+                                                    </p>
+                                                    <small class="text-muted">Precio: $2500</small>
+                                                </div>
+                                                <div class="card-footer">
+                                                    <button type="button" id="kit" class="btn btn-outline-dark"
+                                                        data-id="3">
+                                                        AGREGAR PRODUCTO
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </div>
+                            </section>
     </main>
     <footer>
         <p> 2022 &copy; The Coffee Dealer</p>

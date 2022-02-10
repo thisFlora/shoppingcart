@@ -2,6 +2,7 @@ let cart = [];
 let iva = "";
 let precio = 0;
 let precioFinal = 0;
+let loading = false;
 
 if (recuperarStorage("carrito")) {
     cart = recuperarStorage("carrito");
@@ -16,7 +17,6 @@ function recuperarStorage(clave) {
 }
 
 function pintarCarrito() {
-    console.log("pintarCarrito");
     $("#carrito").empty();
     cart.forEach((producto) => {
         $('#carrito').append(`<div id=${producto.id} class="card mb-3 mt-3" style="max-width: 600px;">
@@ -41,7 +41,11 @@ function pintarCarrito() {
 }
 
 let finaliza = $("#fin").click( () => {
-    finalizarCompra();});
+    if (!loading){
+        loading = true;
+        finalizarCompra();
+    }
+});
 
 $("#sitIva").change(function (e) {
     let value = e.target.value;
@@ -64,13 +68,13 @@ function sumarCostos() {
 
 function finalizarCompra() {
     $('#card-text').append(`<div class="mt-2" id="spinner">
-        <button class="btn btn-primary" type="button" disabled>
+        <button class="btn btn-secondary" type="button" disabled>
     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
     Calculando...
     </button>
     </div>`)
     const spinner = $('#spinner');
-    spinner.css("padding", "10px")
+    spinner.css("padding", "8px")
     .slideDown(5000)
     .delay(3500)
     .slideUp(1000)
@@ -78,6 +82,7 @@ function finalizarCompra() {
         Swal.fire(
             `El total de su compra es: $${precioFinal} `
         );
+        loading = false;
         vaciarCarrito();
     }, 4500);
 }

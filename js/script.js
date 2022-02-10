@@ -1,12 +1,17 @@
 let listaCompra = "";
 let carrito = [];
 let lista = [];
+let productos;
 
-const productos = [
-    { id: 1, producto: "Brasil Catuai", precio: 1200, url:"./img/brasil01.png" },
-    { id: 2, producto: "México Chiapas", precio: 1500, url:"./img/mexico01.png" },
-    { id: 3, producto: "Kit Cafetero", precio: 2500, url:"./img/kit01.png" },
-];
+$.ajax({
+    url: "./json/productos.json",
+    data: {},
+    type: "GET",
+    success: function (response) {
+        productos = response;
+        console.log(productos);
+    },
+});
 
 class Carrito {
     constructor(id, producto, precio, cantidad, url) {
