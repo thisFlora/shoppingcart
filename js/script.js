@@ -9,7 +9,6 @@ $.ajax({
     type: "GET",
     success: function (response) {
         productos = response;
-        console.log(productos);
     },
 });
 
@@ -24,7 +23,7 @@ class Carrito {
 }
 
 //Si hay algo en el carrito, consulto al usuario.
-if (recuperarStorage("carrito")) {
+    if (recuperarStorage("carrito")) {
         $(document).ready(function () {
             let myModal = new bootstrap.Modal(document.getElementById("staticBackdrop"));
             myModal.show();
@@ -33,14 +32,17 @@ if (recuperarStorage("carrito")) {
         let btnNo = $("#btn-cancelar").click(recuperarCart);
 }
 
+
 function recuperarCart(e) {
     e.preventDefault();
     let btn = e.target;
     let value = parseInt(btn.getAttribute("data-id"));
     if(value === 0){
         carrito = recuperarStorage("carrito");
+        despliegaProductos();
     } else {
         localStorage.clear();
+        vaciarCarrito();
     }
 }
 
@@ -99,6 +101,7 @@ function comprar(id) {
 
 //Agrego los productos al carrito en el html
 function despliegaProductos() {
+    cart = carrito;
     $("#lista").empty();
     carrito.forEach((producto) => {
         $('#lista').append(`<div id=${producto.id} class="card mb-3" style="max-width: 540px;">
@@ -130,6 +133,7 @@ function despliegaProductos() {
                 guardarStorage("carrito", JSON.stringify(carrito));
                 // vuelvo a cargar el carrito a mostrar
                 despliegaProductos();
+                pintarCarrito();
             } 
         });
 
@@ -146,12 +150,18 @@ function despliegaProductos() {
                     });
                     // removemos del UI el producto en 0
                     $(`#${idEl}`).remove();
-                    
+                    pintarCarrito();
+                    if(carrito.length ===  0){
+                        localStorage.clear();
+                    } else {
+                        guardarStorage("carrito", JSON.stringify(carrito));
+                    }
                 } else {
                     found.cantidad--;
                     guardarStorage("carrito", JSON.stringify(carrito));
                     // vuelvo a cargar el carrito a mostrar
                     despliegaProductos();
+                    pintarCarrito();
                 }
             } 
         });
@@ -165,3 +175,24 @@ function guardarStorage(clave, valor) {
 function recuperarStorage(clave) {
     return JSON.parse(localStorage.getItem(clave));
 }
+
+$(document).ready(() => {
+    $("#btn-home").click(() => {
+        $(".focus").removeClass("focus");
+        $("#catalogo").addClass("focus");
+        $("#main-carrito").removeClass("mb-5");
+    });
+    $("#verCarrito").click(() => {
+        $(".focus").removeClass("focus");
+        pintarCarrito();
+        $("#cart").addClass("focus");
+    });
+    $("#nav-link-home").click(() => {
+        $(".focus").removeClass("focus");
+        $("#menu").addClass("focus");
+    });
+    $("#nav-link-prod").click(() => {
+        $(".focus").removeClass("focus");
+        $("#catalogo").addClass("focus");
+    });
+})

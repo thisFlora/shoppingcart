@@ -4,20 +4,18 @@ let precio = 0;
 let precioFinal = 0;
 let loading = false;
 
-if (recuperarStorage("carrito")) {
-    cart = recuperarStorage("carrito");
-}
-
-$(document).ready(function () {
-    pintarCarrito();
-})
 
 function recuperarStorage(clave) {
     return JSON.parse(localStorage.getItem(clave));
 }
 
-function pintarCarrito() {
+let pintarCarrito = () => {
     $("#carrito").empty();
+    
+    cart = cart.filter(function (el) {
+        return el.cantidad !== 0;
+    });
+
     cart.forEach((producto) => {
         $('#carrito').append(`<div id=${producto.id} class="card mb-3 mt-3" style="max-width: 600px;">
         <div class="row no-gutters">
@@ -33,18 +31,29 @@ function pintarCarrito() {
                         <span class="box-cantidad">
                         <span id="cantidad">${producto.cantidad}</span>
                         </span>
-                    </p>
-                </div>
+                        </p>
+                        </div>
             </div>
         </div>`);
     });
 }
 
+if (recuperarStorage("carrito")) {
+    cart = recuperarStorage("carrito");
+    pintarCarrito();
+}
+
 let finaliza = $("#fin").click( () => {
+    if(iva === ''){
+        Swal.fire(
+            `Debe ingresar su situación ante el IVA`
+            );
+    } else {
     if (!loading){
         loading = true;
         finalizarCompra();
     }
+}
 });
 
 $("#sitIva").change(function (e) {
@@ -56,7 +65,7 @@ $("#sitIva").change(function (e) {
     } else{
         precioFinal = precio;
     }
-})
+});
 
 function sumarCostos() {
     const nPrecio = cart.reduce(
@@ -66,33 +75,24 @@ function sumarCostos() {
     return nPrecio;
 }
 
-function finalizarCompra() {
-    $('#card-text').append(`<div class="mt-2" id="spinner">
-        <button class="btn btn-secondary" type="button" disabled>
-    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-    Calculando...
-    </button>
-    </div>`)
-    const spinner = $('#spinner');
-    spinner.css("padding", "8px")
-    .slideDown(5000)
-    .delay(3500)
-    .slideUp(1000)
-    setTimeout(() => {
-        Swal.fire(
-            `El total de su compra es: $${precioFinal} `
-        );
-        loading = false;
-        vaciarCarrito();
-    }, 4500);
-}
-
-function vaciarCarrito() {
+let vaciarCarrito = () => {
     cart.splice(0, cart.length);
     suma = 0;
     precioFinal = 0;
     localStorage.clear();
     setTimeout(() => {
-        document.location.href="https://thisflora.github.io/shoppingcart/";
+        document.location.href="/";
     }, 4000);
 }
+
+function finalizarCompra() {
+    setTimeout(() => {
+        Swal.fire(
+            `El total de su compra es: $${precioFinal} `
+            );
+            loading = false;
+            vaciarCarrito();
+        }, 1000);
+}
+
+
