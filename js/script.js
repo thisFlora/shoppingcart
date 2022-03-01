@@ -105,67 +105,67 @@ function despliegaProductos() {
     $("#lista").empty();
     carrito.forEach((producto) => {
         $('#lista').append(`<div id=${producto.id} class="card mb-3" style="max-width: 540px;">
-                                <div class="row g-0">
-                                    <div class="col-md-4">
-                                        <img src="${producto.url}" class="img-fluid rounded-start" alt="img-producto">
-                                    </div>
-                                    <div class="col-md-8">
-                                        <div class="card-body">
-                                            <h5 class="card-title producto">${producto.producto}</h5>
-                                            <p class="card-text precio">Precio: $${producto.precio}</p>
-                                            <p>Cantidad:
-                                            <span class="box-cantidad">
-                                            <button class="btn btn-secondary btn-sm quitar" id="restar${producto.id}">-</button>
-                                            <span id="cantidad">${producto.cantidad}</span>
-                                            <button class="btn btn-secondary btn-sm agregar" id="sumar${producto.id}">+</button>
-                                            </span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>`);
-        $(`#sumar${producto.id}`).click(e => {
-            let found = ""
-            const idEl = producto.id;
-            if (carrito.some((element) => element.id === idEl)) {
-                found = carrito.find((element) => element.id === idEl);
-                found.cantidad++;
+            <div class="row g-0">
+            <div class="col-md-4">
+                <img src="${producto.url}" class="img-fluid rounded-start" alt="img-producto">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title producto">${producto.producto}</h5>
+                    <p class="card-text precio">Precio: $${producto.precio}</p>
+                    <p>Cantidad:
+                    <span class="box-cantidad">
+                    <button class="btn btn-secondary btn-sm quitar" id="restar${producto.id}">-</button>
+                    <span id="cantidad">${producto.cantidad}</span>
+                    <button class="btn btn-secondary btn-sm agregar" id="sumar${producto.id}">+</button>
+                    </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>`);
+    $(`#sumar${producto.id}`).click(e => {
+        let found = ""
+        const idEl = producto.id;
+        if (carrito.some((element) => element.id === idEl)) {
+            found = carrito.find((element) => element.id === idEl);
+            found.cantidad++;
+            guardarStorage("carrito", JSON.stringify(carrito));
+            // vuelvo a cargar el carrito a mostrar
+            despliegaProductos();
+            pintarCarrito();
+        } 
+    });
+
+    $(`#restar${producto.id}`).click(e => {
+        let found = ""
+        const idEl = producto.id;
+        if (carrito.some((element) => element.id === idEl)) {
+            found = carrito.find((element) => element.id === idEl);
+            if(found.cantidad === 1){
+                found.cantidad--;
+                // removemos del carrito cantidades en 0
+                carrito = carrito.filter(function (el) {
+                    return el.cantidad !== 0;
+                });
+                // removemos del UI el producto en 0
+                $(`#${idEl}`).remove();
+                pintarCarrito();
+                if(carrito.length ===  0){
+                    localStorage.clear();
+                } else {
+                    guardarStorage("carrito", JSON.stringify(carrito));
+                }
+            } else {
+                found.cantidad--;
                 guardarStorage("carrito", JSON.stringify(carrito));
                 // vuelvo a cargar el carrito a mostrar
                 despliegaProductos();
                 pintarCarrito();
-            } 
-        });
-
-        $(`#restar${producto.id}`).click(e => {
-            let found = ""
-            const idEl = producto.id;
-            if (carrito.some((element) => element.id === idEl)) {
-                found = carrito.find((element) => element.id === idEl);
-                if(found.cantidad === 1){
-                    found.cantidad--;
-                    // removemos del carrito cantidades en 0
-                    carrito = carrito.filter(function (el) {
-                        return el.cantidad !== 0;
-                    });
-                    // removemos del UI el producto en 0
-                    $(`#${idEl}`).remove();
-                    pintarCarrito();
-                    if(carrito.length ===  0){
-                        localStorage.clear();
-                    } else {
-                        guardarStorage("carrito", JSON.stringify(carrito));
-                    }
-                } else {
-                    found.cantidad--;
-                    guardarStorage("carrito", JSON.stringify(carrito));
-                    // vuelvo a cargar el carrito a mostrar
-                    despliegaProductos();
-                    pintarCarrito();
-                }
-            } 
-        });
+            }
+        } 
     });
+});
 }
 
 function guardarStorage(clave, valor) {

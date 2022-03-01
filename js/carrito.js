@@ -26,13 +26,12 @@ let pintarCarrito = () => {
                 <div class="card-body">
                     <h5 class="card-title">${producto.producto}</h5>
                     <p class="card-text">Precio: $${producto.precio}</p>
-                    <p class="card-text">
-                        Cantidad:
+                    <p class="card-text"> Cantidad:
                         <span class="box-cantidad">
-                        <span id="cantidad">${producto.cantidad}</span>
+                            <span id="cantidad">${producto.cantidad}</span>
                         </span>
-                        </p>
-                        </div>
+                    </p>
+                </div>
             </div>
         </div>`);
     });
