@@ -20,7 +20,7 @@ let pintarCarrito = () => {
         $('#carrito').append(`<div id=${producto.id} class="card mb-3 mt-3" style="max-width: 600px;">
         <div class="row no-gutters">
             <div class="col-md-4">
-                <img src="../${producto.url}" class="card-img" alt="...">
+                <img src="${producto.url}" class="card-img" alt="...">
             </div>
             <div class="col-md-8">
                 <div class="card-body">
